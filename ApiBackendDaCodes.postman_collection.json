@@ -1,0 +1,495 @@
+{
+	"info": {
+		"_postman_id": "3a94b6c8-5135-45b9-af12-bf75f188853c",
+		"name": "ApiBackendDaCodes",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Courses",
+			"item": [
+				{
+					"name": "GetAllCourses",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/allCourses",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"allCourses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetStudentCourses",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "User-Id",
+								"value": "1",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3000/studentCourses",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"studentCourses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PostCourse",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"courseName\":\"Another Course Test\",\n\t\"requiredCourses\": [{\n\t\t\"id\": 4\n\t}],\n\t\"lessons\": []\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/createCourse",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"createCourse"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteCourse",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": 6\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/deleteCourse",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"deleteCourse"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EditCourse",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"courseName\":\"Editing Test Endpoint 3\",\n\t\"id\": 1,\n\t\"requiredCourses\": [\n\t\t{\n\t\t\t \"id\": 3\n\t\t}\n\t\t],\n\t\"lessons\": []\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/editCourse",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"editCourse"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Lessons",
+			"item": [
+				{
+					"name": "GetAllLessons",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/allLessons",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"allLessons"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetLessonDetail",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": 2\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/getLessonDetail",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"getLessonDetail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetStudentLessons",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "User-Id",
+								"value": "1",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"courseId\": 1\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/studentLessons",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"studentLessons"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PostLesson",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"lessonName\": \"Ejercicios extra\",\n    \"requiredLessons\": [],\n    \"course\": \n    {\n    \t\"id\": 1\n    },\n    \"questions\": []\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/createLesson",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"createLesson"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PostTakeLesson",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "User-Id",
+								"value": "1",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"lessonId\": 3,\n\t\"answers\": [\n\t\t{\n\t\t\t\"questionId\": 12,\n\t\t\t\"type\": 0,\n\t\t\t\"submittedAnswer\": [\"true\"]\n\t\t}\n\t]\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/takeLesson",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"takeLesson"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteLesson",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\":1\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/deleteLesson",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"deleteLesson"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EditLesson",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": 4,\n\t\"lessonName\": \"Movimiento armonico simple\",\n    \"requiredLessons\": [],\n    \"course\": \n    {\n    \t\"id\": 1\n    },\n    \"questions\": []\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/editLesson",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"editLesson"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Questions",
+			"item": [
+				{
+					"name": "GetAllQuestions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/allQuestions",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"allQuestions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PostQuestion",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"question\": \"Multiple choice but all must be correct\",\n    \"score\": 1.00,\n    \"type\": {\n        \"type\": 3,\n        \"data\": [\"Option1\",\"Option2\",\"Option3\"],\n        \"correctAnswer\": [\"Option3\",\"Option2\"]\n    },\n    \"answers\": [],\n    \"lesson\": \n    {\n    \t\"id\":2\t\n    }\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/createQuestion",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"createQuestion"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteQuestion",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\":4\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/deleteQuestion",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"deleteQuestion"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EditQuestion",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"question\": \"Multiple Choice Question\",\n    \"score\": 1.00,\n    \"type\": {\n        \"type\": 2,\n        \"data\": [\"Option 1\", \"Option 2\"],\n        \"correctAnswer\": [\"Option 1\"]\n    },\n    \"answers\": [],\n    \"lesson\": \n    {\n    \t\"id\":2\t\n    },\n    \"id\": 7\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/editQuestion",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"editQuestion"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

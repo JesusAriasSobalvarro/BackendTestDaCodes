@@ -7,6 +7,7 @@ import { Answer } from "../entity/Answer";
 import { User } from "../entity/User";
 import { ApprovedCourse } from "../entity/ApprovedCourse";
 import { Course } from "../entity/Course";
+import { checkUserAllowed } from "./UserController";
 
 var _ = require("underscore")
 
@@ -19,44 +20,62 @@ export async function getAllLessons(request: Request, response: Response) {
 }
 
 export async function postLesson(request: Request, response: Response) {
+    var userId = request.header('User-Id');
     var body = request.body;
 
-    const lessonRepository = getManager().getRepository(Lesson);
-    const lesson = await lessonRepository.create(body);
+    if (await checkUserAllowed(userId ? userId : 0)) {
+        const lessonRepository = getManager().getRepository(Lesson);
+        const lesson = await lessonRepository.create(body);
 
-    await lessonRepository.save(lesson);
-    response.send(lesson);
+        await lessonRepository.save(lesson);
+        response.send(lesson);
+    } else {
+        response.send(`You must be a professor to create a lesson.`);
+    }
 }
 
 export async function deleteLesson(request: Request, response: Response) {
-    const lessonRepository = getManager().getRepository(Lesson);
-    const lesson = await lessonRepository.findOne({
-        where: {
-            id: request.body.id
-        }
-    });
+    var userId = request.header('User-Id');
+    var body = request.body;
 
-    await lessonRepository.delete(lesson);
-    response.send(`Lesson Deleted Id: ${request.body.id}`);
+    if (await checkUserAllowed(userId ? userId : 0)) {
+        const lessonRepository = getManager().getRepository(Lesson);
+        const lesson = await lessonRepository.findOne({
+            where: {
+                id: request.body.id
+            }
+        });
+
+        await lessonRepository.delete(lesson);
+        response.send(`Lesson Deleted Id: ${request.body.id}`);
+    } else {
+        response.send(`You must be a professor to delete a lesson.`);
+    }
 }
 
 export async function editLesson(request: Request, response: Response) {
+    var userId = request.header('User-Id');
     var body = request.body;
 
-    const lessonRepository = getManager().getRepository(Lesson);
-    const lesson = await lessonRepository.findOne({
-        where: {
-            id: request.body.id
-        }
-    });
+    if (await checkUserAllowed(userId ? userId : 0)) {
+        const lessonRepository = getManager().getRepository(Lesson);
+        const lesson = await lessonRepository.findOne({
+            where: {
+                id: request.body.id
+            }
+        });
 
-    lesson.lessonName = body.lessonName;
-    lesson.requiredLessons = body.requiredLessons;
-    lesson.questions = body.questions;
-    lesson.course = body.course
+        lesson.lessonName = body.lessonName;
+        lesson.requiredLessons = body.requiredLessons;
+        lesson.questions = body.questions;
+        lesson.course = body.course
 
-    await lessonRepository.save(lesson);
-    response.send(lesson);
+        await lessonRepository.save(lesson);
+        response.send(lesson);
+
+    } else {
+        response.send(`You must be a professor to edit a lesson.`);
+    }
 }
 
 export async function getLessonDetail(request: Request, response: Response) {
@@ -122,22 +141,26 @@ export async function getStudentLessons(request: Request, response: Response) {
     })
 
     /* Get lessons that have not been approved and dont have any correlation */
-    promiseLesonsArray.push(new Promise(async (resolve) => {
-        var lessonsWithoutRequirements = _.filter(lessons, (lesson) => {
-            return _.isEmpty(lesson.requiredLessons);
-        });
+    promiseLesonsArray.push(new Promise(async (resolve, reject) => {
+        try {
+            var lessonsWithoutRequirements = _.filter(lessons, (lesson) => {
+                return _.isEmpty(lesson.requiredLessons);
+            });
 
-        /* Filter by course */
-        var lessonsByCourse = _.filter(lessonsWithoutRequirements, (lesson) => {
-            return lesson.course.id == courseId;
-        });
+            /* Filter by course */
+            var lessonsByCourse = _.filter(lessonsWithoutRequirements, (lesson) => {
+                return lesson.course.id == courseId;
+            });
 
-        var filteredLessons = _.filter(lessonsByCourse, (lesson) => {
-            return !_.some(approvedLessonList, (approvedLesson) => {
-                return approvedLesson.lesson.id === lesson.id
+            var filteredLessons = _.filter(lessonsByCourse, (lesson) => {
+                return !_.some(approvedLessonList, (approvedLesson) => {
+                    return approvedLesson.lesson.id === lesson.id
+                })
             })
-        })
-        resolve(filteredLessons)
+            resolve(filteredLessons)
+        } catch (error) {
+            reject(error)
+        }
     }))
 
     Promise.all(promiseLesonsArray).then(async (value) => {
@@ -147,6 +170,8 @@ export async function getStudentLessons(request: Request, response: Response) {
             "availableLessons": availableLessons,
             "allLessons": lessons
         })
+    }).catch((error) => {
+        response.send(error)
     })
 }
 
