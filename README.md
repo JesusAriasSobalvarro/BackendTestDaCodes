@@ -58,3 +58,4 @@ npm start
 1. Express: Ive used this framework to setup routing in a quick manner.
 2. BodyParser: This middleware allows an easier way to handle encoded/formatted data.
 3. TypeORM: Used to develop models and types compatible with SQL.
+4. Underscore: Used to work with lists. Useful for operations such as filtering, sorting, etc.
