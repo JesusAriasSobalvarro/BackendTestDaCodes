@@ -4,7 +4,7 @@ This repository contains code of an API developed as a test from DaCodes.
 
 ## Description
 
-We require to develop an API for e-learning courses to integrate in our system. The purpose of this tool is for us, as professors to manage courses configuration and performance reviews and, for our students, to take courses when using our frontend. Our PM is a very busy person, so we don’t have detailed tasks but only the business rules to work with.
+The API developed is intended for e-learning courses to integrate in a system. The purpose of this API is that professors are able to manage courses configuration and performance reviews and, for students, to take courses when using a frontend.
 
 ## Installation and usage
 ### Requirements
