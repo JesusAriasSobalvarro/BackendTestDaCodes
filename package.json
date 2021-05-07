@@ -13,7 +13,7 @@
       "nodemon": "^2.0.2",
       "reflect-metadata": "^0.1.10",
       "typeorm": "0.2.22",
-      "underscore": "^1.9.2"
+      "underscore": "^1.12.1"
    },
    "scripts": {
       "start": "ts-node src/index.ts"
